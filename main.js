@@ -5,6 +5,8 @@ import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import View from 'ol/View';
 import {Fill, RegularShape, Stroke, Style} from 'ol/style';
+import OSM from 'ol/source/OSM';
+import Tile from 'ol/layer/Tile';
 
 const fill = new Fill({color: 'black'});
 
@@ -66,7 +68,12 @@ const vectorLayer = new VectorLayer({
 
 // Initialize the map with the vectorLayer
 const map = new Map({
-  layers: [vectorLayer],
+  layers: [
+    new Tile({
+      source: new OSM()
+    }),
+    vectorLayer,
+  ],
   target: 'map',
   view: new View({
     center: [0, 0],
