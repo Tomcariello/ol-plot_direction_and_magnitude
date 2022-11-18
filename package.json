@@ -1,5 +1,5 @@
 {
-  "name": "wind-arrows",
+  "name": "ol-plot_direction_and_magnitude",
   "dependencies": {
     "ol": "7.1.0"
   },
