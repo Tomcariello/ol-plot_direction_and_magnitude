@@ -16,16 +16,32 @@ const e = 4500000;
 
 const fillArr = ["red","blue","green"];
 
-// Create random coordinates & angle
+// Create random coordinates, direction & magnitude
 for (let i = 0; i < count; ++i) {
   const coordinates = [6 * e * Math.random() - e, 6 * e * Math.random() - e];
-  const angle = Math.floor(Math.random() * (360 + 1))
   
-  // OL angle is in radians so convert
-  const radianAngle = angle * 3.14/180;
+  // Randomly generate DEGREES & convert to RADIANS
+  // Surely there is a more direct approach...
+  const pi = 3.14
+  const radianDirection = Math.floor(Math.random() * 361) * pi/180;
   
-  // Select random color
-  const arrowColor = fillArr[Math.floor(Math.random() * (fillArr.length))]
+  // Generate the magnitude
+  const magnitude = Math.floor(Math.random() * 20000);
+  console.log(magnitude)
+
+  // Select random color from array
+  // const arrowColor = fillArr[Math.floor(Math.random() * (fillArr.length))]
+  let arrowColor = fillArr[0];
+  let arrowMultiplier = 1;
+
+  // Based on magnitude, adjust color & arrow length
+  if (magnitude < 6666) {
+    arrowColor = fillArr[1];
+    arrowMultiplier = 1.25
+  } else if (magnitude < 13500) {
+    arrowColor = fillArr[2];
+    arrowMultiplier = 1.5
+  }
 
   // Create a style array containing an arrow shaft & arrow point
   const arrow = [
@@ -33,22 +49,22 @@ for (let i = 0; i < count; ++i) {
     new Style({
       image: new RegularShape({
         points: 2,
-        radius: 8,
+        radius: 10 * arrowMultiplier,
         stroke: new Stroke({
           width: 2,
           color: arrowColor,
         }),
         displacement: [0,0], // [horizontal offset, vertical offset] positive shifts right or down
-        angle: radianAngle,
+        angle: radianDirection,
       }),
     }),
     // The arrow head <-- This does render!
     new Style({
         image: new RegularShape({
           points: 3,
-          radius: 5,
+          radius: 5 * arrowMultiplier,
           displacement: [0,0],
-          angle: radianAngle,
+          angle: radianDirection,
           fill: new Fill({color: arrowColor}),
         }),
       })
