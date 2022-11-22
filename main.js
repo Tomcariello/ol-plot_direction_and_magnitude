@@ -16,7 +16,7 @@ const featuresArr = [];
 const arrowColorScaleArr = ["red","blue","green"];
 
 // Fetch data, convert to JSON, then processData()
-const getData = await fetch('data/s_weather.json')
+const getData = await fetch('data/weather.json')
   .then(function (resData) {
     return resData.json();
   })
